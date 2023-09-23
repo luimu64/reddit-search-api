@@ -32,20 +32,29 @@ app.get("/search", async (c) => {
     upvotes: number;
     comments: number;
     subreddit: string;
+    oldUrl: string;
+    newUrl: string;
   }
 
   let searcResults: ISearchResult[] = [];
 
   $(".search-result.search-result-link").each((i, elem) => {
+    const titleElem = $(elem).find("a.search-title");
+
     if (i < numOfResults) {
       searcResults = [
         ...searcResults,
         {
-          title: $(elem).find("a.search-title").text(),
+          title: titleElem.text(),
           body: $(elem).find(".search-result-body > .md").children().text(),
           upvotes: parseInt($(elem).find(".search-score").text()),
           comments: parseInt($(elem).find(".search-comments").text()),
           subreddit: $(elem).find("a.search-subreddit-link").text(),
+          oldUrl: titleElem.attr("href") || "",
+          newUrl:
+            titleElem
+              .attr("href")
+              ?.replace(/old.reddit.com/g, "www.reddit.com") || "",
         },
       ];
     }
