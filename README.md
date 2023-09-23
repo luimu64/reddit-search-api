@@ -6,7 +6,7 @@
 
 `q: string` Your search query
 
-To get results regarding Touhou games:
+To get results regarding Touhou games:\
 `localhost:8787/search?q=touhou`
 
 ### Number of results - `optional`
@@ -15,7 +15,7 @@ To get results regarding Touhou games:
 
 Default is 10
 
-To get 5 search results:
+To get 5 search results:\
 `localhost:8787/search?q=kitten&amount=5`
 
 ### Sorting - `optional`
@@ -29,12 +29,12 @@ Available options are:
 - comments
 - relevance (default)
 
-To get newest posts:
+To get newest posts:\
 `localhost:8787/search?q=gaming&sort=new`
 
 ### Body size - `optional`
 
 `bsize: number` The length of body attribute in characters.
 
-To get posts with length of 200 characters:
+To get posts with length of 200 characters:\
 `localhost:8787/search?q=gaming&bsize=200`
