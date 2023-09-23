@@ -51,7 +51,7 @@ app.get("/search", async (c) => {
     }
   });
 
-  return c.json({ test: searcResults });
+  return c.json(searcResults);
 });
 
 export default app;
