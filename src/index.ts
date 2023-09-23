@@ -8,7 +8,11 @@ app.get("/", (c) =>
 );
 
 app.get("/search", async (c) => {
+  //required
   const searchTerm = c.req.query("q");
+  if (!searchTerm) return c.text("Give query!");
+
+  //optional
   const numOfResults = parseInt(c.req.query("amount") || "10");
   const sorting = c.req.query("sort");
   const bodySize = parseInt(c.req.query("bsize") || "0");
