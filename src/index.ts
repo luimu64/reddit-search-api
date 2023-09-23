@@ -15,7 +15,7 @@ app.get("/search", async (c) => {
   //optional
   const numOfResults = parseInt(c.req.query("amount") || "10");
   const sorting = c.req.query("sort");
-  const bodySize = parseInt(c.req.query("bsize") || "0");
+  const bodySize = parseInt(c.req.query("bsize") || "-1");
 
   const fetchRes = await fetch(
     `https://old.reddit.com/search/?q=${searchTerm}${
@@ -46,7 +46,8 @@ app.get("/search", async (c) => {
   $(".search-result.search-result-link").each((i, elem) => {
     const titleElem = $(elem).find("a.search-title");
     let body = $(elem).find(".search-result-body > .md").children().text();
-    if (bodySize > 0) {
+    //-1 default -> all text no truncation
+    if (bodySize > -1) {
       body = body.substring(0, bodySize).concat("...");
     }
 
