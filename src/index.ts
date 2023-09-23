@@ -10,9 +10,12 @@ app.get("/", (c) =>
 app.get("/search", async (c) => {
   const searchTerm = c.req.query("q");
   const numOfResults = parseInt(c.req.query("amount") || "10");
+  const sorting = c.req.query("sort");
 
   const fetchRes = await fetch(
-    `https://old.reddit.com/search/?q=${searchTerm}`,
+    `https://old.reddit.com/search/?q=${searchTerm}${
+      sorting ? "&sort=" + sorting : ""
+    }`,
     {
       headers: {
         "User-Agent":
