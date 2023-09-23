@@ -9,7 +9,7 @@ app.get("/", (c) =>
 
 app.get("/search", async (c) => {
   const searchTerm = c.req.query("q");
-  const numOfResults = c.req.query("amount");
+  const numOfResults = parseInt(c.req.query("amount") || "10");
 
   const fetchRes = await fetch(
     `https://old.reddit.com/search/?q=${searchTerm}`,
@@ -34,16 +34,18 @@ app.get("/search", async (c) => {
   let searcResults: ISearchResult[] = [];
 
   $(".search-result.search-result-link").each((i, elem) => {
-    searcResults = [
-      ...searcResults,
-      {
-        title: $(elem).find("a.search-title").text(),
-        body: $(elem).find(".search-result-body > .md").children().text(),
-        upvotes: parseInt($(elem).find(".search-score").text()),
-        comments: parseInt($(elem).find(".search-comments").text()),
-        subreddit: $(elem).find("a.search-subreddit-link").text(),
-      },
-    ];
+    if (i < numOfResults) {
+      searcResults = [
+        ...searcResults,
+        {
+          title: $(elem).find("a.search-title").text(),
+          body: $(elem).find(".search-result-body > .md").children().text(),
+          upvotes: parseInt($(elem).find(".search-score").text()),
+          comments: parseInt($(elem).find(".search-comments").text()),
+          subreddit: $(elem).find("a.search-subreddit-link").text(),
+        },
+      ];
+    }
   });
 
   return c.json({ test: searcResults });
